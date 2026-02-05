@@ -8,14 +8,20 @@
 
 <style>
 
+/* MAIN BODY */
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
     background: #ffe6ee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     text-align: center;
+    overflow-x: hidden;
 }
 
-/* PETALS BACKGROUND ONLY */
+/* BACKGROUND PETALS */
 #petals {
     position: fixed;
     top: 0;
@@ -26,8 +32,8 @@ body {
 .petal {
     position: fixed;
     top: -10px;
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     background: pink;
     border-radius: 50%;
     opacity: 0.6;
@@ -40,16 +46,21 @@ body {
     }
 }
 
-/* MAIN CARD */
+/* CARD */
 .card {
-    background: rgba(255,255,255,0.92);
+    background: rgba(255,255,255,0.94);
     border: 2px solid #ffb6c1;
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 20px;
     width: 90%;
     max-width: 420px;
-    margin: 40px auto;
     box-shadow: 0 0 20px rgba(255,182,193,0.4);
+    animation: fade 1s ease;
+}
+
+@keyframes fade {
+    from {opacity:0;}
+    to {opacity:1;}
 }
 
 h1 {
@@ -71,42 +82,57 @@ button {
     display: none;
 }
 
-/* BETTER GIFT BOX */
-#gift {
-    font-size: 80px;
-    animation: shake 1.5s infinite;
+/* AESTHETIC GIFT BOX */
+#mainGift {
+    width: 120px;
     cursor: pointer;
+    animation: bounce 1.5s infinite;
 }
 
-@keyframes shake {
-    0% { transform: rotate(0deg);}
-    25% { transform: rotate(5deg);}
-    50% { transform: rotate(-5deg);}
-    100% { transform: rotate(0deg);}
+@keyframes bounce {
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
 }
 
-/* RANDOM PHOTOS */
-.random-photo {
-    width: 140px;
-    border: 5px solid white;
-    box-shadow: 0 0 10px gray;
-    position: absolute;
+/* POP OUT GIFTS */
+.smallGift {
+    width: 70px;
+    margin: 10px;
+    cursor: pointer;
+    display: inline-block;
+    animation: pop 1s ease;
+}
+
+@keyframes pop {
+    from {transform:scale(0);}
+    to {transform:scale(1);}
 }
 
 /* VINTAGE PAPER */
 .paper {
     background: #fff8e7;
     border: 2px solid #d4a373;
-    padding: 15px;
-    margin: 20px;
+    padding: 20px;
+    margin: 10px;
+    min-height: 600px;
+    position: relative;
     font-family: 'Courier Prime', monospace;
 }
 
-/* TYPEWRITER */
-.type {
-    border-right: 2px solid black;
-    white-space: pre-line;
-    overflow: hidden;
+/* RANDOM IMAGES ON PAPER */
+.paper img {
+    width: 120px;
+    position: absolute;
+    border: 4px solid white;
+    box-shadow: 0 0 10px gray;
+}
+
+/* FLOATING STICKERS */
+.sticker {
+    position: fixed;
+    width: 60px;
+    opacity: 0.4;
+    z-index: -1;
 }
 
 </style>
@@ -120,70 +146,71 @@ button {
 
 <div id="petals"></div>
 
+<!-- FLOATING DECORATIONS -->
+<img src="number1.jpg" class="sticker" style="top:10%; left:5%;">
+<img src="number2.jpg" class="sticker" style="bottom:10%; right:5%;">
+
 <!-- PAGE 1 -->
 <div class="card" id="p1">
 
 <h1>Will you be my Valentine? 💖</h1>
 
 <button onclick="yes()">YES 💕</button>
-<button id="no" onclick="no()">NO 😏</button>
+<button id="noBtn" onclick="no()">NO 😏</button>
 
-<img id="sticker" width="160" class="hidden">
+<img id="noSticker" width="160" class="hidden">
 
 </div>
-
 
 <!-- PAGE 2 -->
 <div class="card hidden" id="p2">
 
-<h1>Yayyyy! You clicked YES 😭💘</h1>
+<h1>You clicked YES 😭💖</h1>
 
-<p>Tap the surprise gift 👇</p>
+<p>Tap the gift box 👇</p>
 
-<div id="gift" onclick="openGift()">🎁</div>
+<img src="number1.jpg" id="mainGift" onclick="showGifts()">
+
+<div id="gifts" class="hidden">
+  <img src="number2.jpg" class="smallGift" onclick="openPhotos()">
+  <img src="number1.jpg" class="smallGift" onclick="openVoice()">
+  <img src="number2.jpg" class="smallGift" onclick="openVideo()">
+</div>
 
 </div>
 
-
-<!-- PAGE 3 -->
-<div class="card hidden" id="p3">
-
-<h1>Choose Your Surprise 🌸</h1>
-
-<button onclick="photos()">Photos 📸</button>
-<button onclick="voice()">Voice Note 🎧</button>
-<button onclick="video()">Final Video 🎬</button>
-
-</div>
-
-
-<!-- PHOTOS RANDOM -->
-<div class="hidden" id="photosPage">
+<!-- PHOTOS PAGE -->
+<div id="photos" class="hidden">
 
 <div class="paper">
-<h2>Our Memories 💌</h2>
-<p class="type" id="typing"></p>
+
+<h2>Our Little Memories 💌</h2>
+
+<p>
+Every photo here holds a beautiful memory.  
+Moments with you feel like magic.  
+Thank you for being my favorite person 💖
+</p>
+
+<img src="photo1.jpg" style="top:10%; left:5%; transform:rotate(-10deg)">
+<img src="photo2.jpg" style="top:30%; right:10%; transform:rotate(8deg)">
+<img src="photo3.jpg" style="top:50%; left:15%; transform:rotate(-6deg)">
+<img src="photo4.jpg" style="top:70%; right:5%; transform:rotate(10deg)">
+<img src="photo5.jpg" style="top:85%; left:10%; transform:rotate(-8deg)">
+
 </div>
 
-<img src="photo1.jpg" class="random-photo" style="top:10%; left:5%; transform:rotate(-10deg)">
-<img src="photo2.jpg" class="random-photo" style="top:40%; right:5%; transform:rotate(8deg)">
-<img src="photo3.jpg" class="random-photo" style="bottom:10%; left:10%; transform:rotate(-6deg)">
-<img src="photo4.jpg" class="random-photo" style="top:20%; right:20%; transform:rotate(12deg)">
-<img src="photo5.jpg" class="random-photo" style="bottom:20%; right:15%; transform:rotate(-8deg)">
-
-<br><br>
 <button onclick="back()">Back</button>
 
 </div>
 
-
 <!-- VOICE -->
-<div class="card hidden" id="voicePage">
+<div class="card hidden" id="voice">
 
 <h1>Your Voice Gift 💌</h1>
 
 <audio controls>
-<source src="voice.mp3">
+<source src="voice.mp3.m4a">
 </audio>
 
 <br>
@@ -191,9 +218,8 @@ button {
 
 </div>
 
-
 <!-- VIDEO -->
-<div class="card hidden" id="videoPage">
+<div class="card hidden" id="video">
 
 <h1>Final Surprise 🎬</h1>
 
@@ -207,16 +233,15 @@ button {
 </div>
 
 
-
 <script>
 
-// PETALS BACKGROUND
+// PETALS
 function petals(){
-  for(let i=0;i<40;i++){
+  for(let i=0;i<50;i++){
     let p=document.createElement("div");
     p.className="petal";
     p.style.left=Math.random()*100+"vw";
-    p.style.animationDuration=4+Math.random()*6+"s";
+    p.style.animationDuration=4+Math.random()*5+"s";
     document.getElementById("petals").appendChild(p);
   }
 }
@@ -228,14 +253,14 @@ let c=0;
 
 function no(){
   c++;
-  let s=document.getElementById("sticker");
+  let s=document.getElementById("noSticker");
   s.classList.remove("hidden");
 
   if(c==1) s.src="number1.jpg";
   if(c==2) s.src="number2.jpg";
 
   if(c>=3){
-    document.getElementById("no").style.display="none";
+    document.getElementById("noBtn").style.display="none";
   }
 }
 
@@ -244,60 +269,38 @@ function yes(){
   document.getElementById("p2").classList.remove("hidden");
 }
 
-function openGift(){
-  document.getElementById("p2").classList.add("hidden");
-  document.getElementById("p3").classList.remove("hidden");
+function showGifts(){
+  document.getElementById("gifts").classList.remove("hidden");
 }
 
-// NAVIGATION
-function photos(){
+function openPhotos(){
   hideAll();
-  document.getElementById("photosPage").classList.remove("hidden");
-  typeText();
+  document.getElementById("photos").classList.remove("hidden");
 }
 
-function voice(){
+function openVoice(){
   hideAll();
-  document.getElementById("voicePage").classList.remove("hidden");
+  document.getElementById("voice").classList.remove("hidden");
 }
 
-function video(){
+function openVideo(){
   hideAll();
-  document.getElementById("videoPage").classList.remove("hidden");
+  document.getElementById("video").classList.remove("hidden");
 }
 
 function back(){
   hideAll();
-  document.getElementById("p3").classList.remove("hidden");
+  document.getElementById("p2").classList.remove("hidden");
 }
 
 function hideAll(){
-  document.getElementById("p3").classList.add("hidden");
-  document.getElementById("photosPage").classList.add("hidden");
-  document.getElementById("voicePage").classList.add("hidden");
-  document.getElementById("videoPage").classList.add("hidden");
-}
-
-
-// TYPEWRITER EFFECT
-function typeText(){
-
-let text = "Every photo here holds a special memory. \nMoments with you are my favorite stories. \nYou make life beautiful 💖";
-
-let i=0;
-let speed=60;
-
-function type(){
-  if(i<text.length){
-    document.getElementById("typing").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(type,speed);
-  }
-}
-type();
+  document.getElementById("photos").classList.add("hidden");
+  document.getElementById("voice").classList.add("hidden");
+  document.getElementById("video").classList.add("hidden");
+  document.getElementById("p2").classList.add("hidden");
 }
 
 </script>
 
 </body>
-    </html>
+</html>
