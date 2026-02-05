@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vintage Valentine 💌</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+
+    background: #f4e7d3;
+
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: rgba(255,255,255,0.85);
+    padding: 20px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 520px;
+    box-shadow: 0px 0px 15px #a67c52;
+}
+
+button {
+    padding: 10px 18px;
+    margin: 10px;
+    border: 2px solid #a67c52;
+    border-radius: 20px;
+    background: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.hidden {
+    display: none;
+}
+
+.photo {
+    width: 120px;
+    margin: 10px;
+    transform: rotate(-5deg);
+    border: 4px solid white;
+    box-shadow: 0px 0px 10px gray;
+}
+
+.random {
+    transform: rotate(8deg);
+}
+
+.sticker {
+    width: 150px;
+    margin-top: 10px;
+}
+
+.arrow {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="music.mp3">
+</audio>
+
+<audio id="voice">
+<source src="voice.mp3">
+</audio>
+
+<div class="container" id="page1">
+
+<h2>Will You Be My Valentine? 💌</h2>
+
+<button onclick="yesClick()">YES 💖</button>
+<button onclick="noClick()" id="noBtn">NO 😒</button>
+
+<div id="stickerArea"></div>
+
+</div>
+
+
+
+<div class="container hidden" id="page2">
+
+<h2>YAY! You Said YES 😍</h2>
+
+<p>Here is a surprise for you...</p>
+
+<button onclick="openBox()">Open Surprise Box 🎁</button>
+
+</div>
+
+
+
+<div class="container hidden" id="page3">
+
+<h2>Surprise Time 🎉</h2>
+
+<p>Flowers, love and happiness just for you!</p>
+
+🌹 🎈 🎁 💌 💐
+
+<br><br>
+
+<div class="arrow" onclick="openPhotos()">➡</div>
+
+</div>
+
+
+
+<div class="container hidden" id="page4">
+
+<h2>Our Memories 💖</h2>
+
+<img src="photo1.jpg" class="photo">
+<img src="photo2.jpg" class="photo random">
+<img src="photo3.jpg" class="photo">
+<img src="photo4.jpg" class="photo random">
+<img src="photo5.jpg" class="photo">
+
+<p>Every photo holds a little piece of my heart 💕</p>
+
+<div class="arrow" onclick="openGifts()">➡</div>
+
+</div>
+
+
+
+<div class="container hidden" id="page5">
+
+<h2>Your Gifts 🎁</h2>
+
+<button onclick="openLetter()">Love Letter 💌</button>
+<button onclick="playVoice()">Voice Note 🎧</button>
+<button onclick="openFinal()">Final Surprise 🎬</button>
+
+</div>
+
+
+
+<div class="container hidden" id="letter">
+
+<h2>My Love Letter 💌</h2>
+
+<p>
+You make my life beautiful in ways words can never describe.  
+Thank you for being you.  
+Forever and always – I choose you 💖
+</p>
+
+<button onclick="backGifts()">Back</button>
+
+</div>
+
+
+
+<div class="container hidden" id="final">
+
+<h2>Final Surprise 🎬</h2>
+
+<video width="250" controls>
+<source src="surprise.mp4">
+</video>
+
+<p>You are my favorite person in the world 🌍💖</p>
+
+</div>
+
+
+
+<script>
+
+let noCount = 0;
+
+function yesClick() {
+    document.getElementById("music").play();
+    document.getElementById("page1").style.display = "none";
+    document.getElementById("page2").style.display = "block";
+}
+
+function noClick() {
+
+    noCount++;
+
+    let area = document.getElementById("stickerArea");
+
+    if(noCount == 1){
+        area.innerHTML = "<img src='number1.jpg' class='sticker'><p>Think again 😏</p>";
+    }
+
+    else if(noCount == 2){
+        area.innerHTML = "<img src='number2.jpg' class='sticker'><p>Are you sure? 🥺</p>";
+    }
+
+    else if(noCount == 3){
+        area.innerHTML = "<img src='number3.jpg' class='sticker'><p>Please say YES 😭</p>";
+        document.getElementById("noBtn").style.display = "none";
+    }
+}
+
+function openBox(){
+    document.getElementById("page2").style.display = "none";
+    document.getElementById("page3").style.display = "block";
+}
+
+function openPhotos(){
+    document.getElementById("page3").style.display = "none";
+    document.getElementById("page4").style.display = "block";
+}
+
+function openGifts(){
+    document.getElementById("page4").style.display = "none";
+    document.getElementById("page5").style.display = "block";
+}
+
+function openLetter(){
+    document.getElementById("page5").style.display = "none";
+    document.getElementById("letter").style.display = "block";
+}
+
+function backGifts(){
+    document.getElementById("letter").style.display = "none";
+    document.getElementById("page5").style.display = "block";
+}
+
+function playVoice(){
+    document.getElementById("voice").play();
+}
+
+function openFinal(){
+    document.getElementById("page5").style.display = "none";
+    document.getElementById("final").style.display = "block";
+}
+
+</script>
+
+</body>
+</html>
