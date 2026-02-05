@@ -4,27 +4,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Be My Valentine 💌</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Courier+Prime&family=Poppins&display=swap" rel="stylesheet">
 
 <style>
 
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: #fff0f5;
-    overflow-x: hidden;
+    background: #ffe6ee;
     text-align: center;
 }
 
-/* PETAL ANIMATION */
+/* PETALS BACKGROUND ONLY */
+#petals {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
 .petal {
     position: fixed;
     top: -10px;
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     background: pink;
     border-radius: 50%;
-    opacity: 0.7;
+    opacity: 0.6;
     animation: fall linear infinite;
 }
 
@@ -34,26 +40,21 @@ body {
     }
 }
 
-.container {
-    background: rgba(255,255,255,0.85);
+/* MAIN CARD */
+.card {
+    background: rgba(255,255,255,0.92);
     border: 2px solid #ffb6c1;
-    border-radius: 20px;
-    padding: 25px;
+    border-radius: 15px;
+    padding: 20px;
     width: 90%;
-    max-width: 450px;
-    margin: 60px auto;
+    max-width: 420px;
+    margin: 40px auto;
     box-shadow: 0 0 20px rgba(255,182,193,0.4);
-    animation: fadeIn 1s ease;
-}
-
-@keyframes fadeIn {
-    from {opacity:0;}
-    to {opacity:1;}
 }
 
 h1 {
     font-family: 'Dancing Script', cursive;
-    color: #d63384;
+    color: #c2185b;
 }
 
 button {
@@ -61,38 +62,51 @@ button {
     margin: 10px;
     border: none;
     border-radius: 20px;
-    font-size: 16px;
-    cursor: pointer;
     background: #ff69b4;
     color: white;
-    transition: 0.3s;
-}
-
-button:hover {
-    transform: scale(1.1);
+    font-size: 16px;
 }
 
 .hidden {
     display: none;
 }
 
-.photo {
-    width: 120px;
-    margin: 10px;
-    border: 4px solid white;
-    transform: rotate(-6deg);
-    box-shadow: 0 0 10px gray;
-}
-
-#giftBox {
-    font-size: 70px;
+/* BETTER GIFT BOX */
+#gift {
+    font-size: 80px;
+    animation: shake 1.5s infinite;
     cursor: pointer;
-    animation: bounce 1.5s infinite;
 }
 
-@keyframes bounce {
-    0%,100% {transform: translateY(0);}
-    50% {transform: translateY(-10px);}
+@keyframes shake {
+    0% { transform: rotate(0deg);}
+    25% { transform: rotate(5deg);}
+    50% { transform: rotate(-5deg);}
+    100% { transform: rotate(0deg);}
+}
+
+/* RANDOM PHOTOS */
+.random-photo {
+    width: 140px;
+    border: 5px solid white;
+    box-shadow: 0 0 10px gray;
+    position: absolute;
+}
+
+/* VINTAGE PAPER */
+.paper {
+    background: #fff8e7;
+    border: 2px solid #d4a373;
+    padding: 15px;
+    margin: 20px;
+    font-family: 'Courier Prime', monospace;
+}
+
+/* TYPEWRITER */
+.type {
+    border-right: 2px solid black;
+    white-space: pre-line;
+    overflow: hidden;
 }
 
 </style>
@@ -107,67 +121,69 @@ button:hover {
 <div id="petals"></div>
 
 <!-- PAGE 1 -->
-<div class="container" id="page1">
-<h1>Will You Be My Valentine? 💖</h1>
+<div class="card" id="p1">
 
-<button onclick="yesClicked()">YES 💕</button>
-<button id="noBtn" onclick="noClicked()">NO 😏</button>
+<h1>Will you be my Valentine? 💖</h1>
 
-<img id="noSticker" class="hidden" width="180">
+<button onclick="yes()">YES 💕</button>
+<button id="no" onclick="no()">NO 😏</button>
+
+<img id="sticker" width="160" class="hidden">
+
 </div>
+
 
 <!-- PAGE 2 -->
-<div class="container hidden" id="page2">
-<h1>Yayyyyy! You said YES 😭💖</h1>
+<div class="card hidden" id="p2">
 
-<p>Tap the surprise box 👇</p>
+<h1>Yayyyy! You clicked YES 😭💘</h1>
 
-<div id="giftBox" onclick="openGift()">🎁</div>
+<p>Tap the surprise gift 👇</p>
+
+<div id="gift" onclick="openGift()">🎁</div>
+
 </div>
+
 
 <!-- PAGE 3 -->
-<div class="container hidden" id="page3">
+<div class="card hidden" id="p3">
 
-<h1>Welcome to Our Little World 🌸</h1>
+<h1>Choose Your Surprise 🌸</h1>
 
-<button onclick="openPhotos()">Photos 📸</button>
-<button onclick="openVoice()">Voice Note 🎧</button>
-<button onclick="openVideo()">Final Surprise 🎬</button>
+<button onclick="photos()">Photos 📸</button>
+<button onclick="voice()">Voice Note 🎧</button>
+<button onclick="video()">Final Video 🎬</button>
 
 </div>
 
-<!-- PHOTOS -->
-<div class="container hidden" id="photos">
 
-<h1>Our Cute Memories 💞</h1>
+<!-- PHOTOS RANDOM -->
+<div class="hidden" id="photosPage">
 
-<img src="photo1.jpg" class="photo">
-<p>You + Me = Magic ✨</p>
+<div class="paper">
+<h2>Our Memories 💌</h2>
+<p class="type" id="typing"></p>
+</div>
 
-<img src="photo2.jpg" class="photo">
-<p>My forever favorite person 💖</p>
+<img src="photo1.jpg" class="random-photo" style="top:10%; left:5%; transform:rotate(-10deg)">
+<img src="photo2.jpg" class="random-photo" style="top:40%; right:5%; transform:rotate(8deg)">
+<img src="photo3.jpg" class="random-photo" style="bottom:10%; left:10%; transform:rotate(-6deg)">
+<img src="photo4.jpg" class="random-photo" style="top:20%; right:20%; transform:rotate(12deg)">
+<img src="photo5.jpg" class="random-photo" style="bottom:20%; right:15%; transform:rotate(-8deg)">
 
-<img src="photo3.jpg" class="photo">
-<p>Every moment with you feels special 🥰</p>
-
-<img src="photo4.jpg" class="photo">
-<p>My happy place is YOU 💕</p>
-
-<img src="photo5.jpg" class="photo">
-<p>Making memories together 🌸</p>
-
-<br>
+<br><br>
 <button onclick="back()">Back</button>
 
 </div>
 
-<!-- VOICE -->
-<div class="container hidden" id="voice">
 
-<h1>A Special Voice Note 💌</h1>
+<!-- VOICE -->
+<div class="card hidden" id="voicePage">
+
+<h1>Your Voice Gift 💌</h1>
 
 <audio controls>
-<source src="voice.mp3.m4a">
+<source src="voice.mp3">
 </audio>
 
 <br>
@@ -175,12 +191,13 @@ button:hover {
 
 </div>
 
+
 <!-- VIDEO -->
-<div class="container hidden" id="video">
+<div class="card hidden" id="videoPage">
 
 <h1>Final Surprise 🎬</h1>
 
-<video width="250" controls>
+<video width="260" controls>
 <source src="surprise.mp4">
 </video>
 
@@ -190,81 +207,97 @@ button:hover {
 </div>
 
 
+
 <script>
 
-// PETALS
-function createPetals(){
-  for(let i=0;i<30;i++){
-    let p = document.createElement("div");
+// PETALS BACKGROUND
+function petals(){
+  for(let i=0;i<40;i++){
+    let p=document.createElement("div");
     p.className="petal";
     p.style.left=Math.random()*100+"vw";
-    p.style.animationDuration=3+Math.random()*5+"s";
+    p.style.animationDuration=4+Math.random()*6+"s";
     document.getElementById("petals").appendChild(p);
   }
 }
-createPetals();
+petals();
+
 
 // NO LOGIC
-let count = 0;
+let c=0;
 
-function noClicked(){
-  count++;
+function no(){
+  c++;
+  let s=document.getElementById("sticker");
+  s.classList.remove("hidden");
 
-  let img = document.getElementById("noSticker");
+  if(c==1) s.src="number1.jpg";
+  if(c==2) s.src="number2.jpg";
 
-  img.classList.remove("hidden");
-
-  if(count==1){
-    img.src="number1.jpg";
-  }
-  else if(count==2){
-    img.src="number2.jpg";
-  }
-  else if(count>=3){
-    document.getElementById("noBtn").style.display="none";
-    img.src="number1.jpg";
+  if(c>=3){
+    document.getElementById("no").style.display="none";
   }
 }
 
-function yesClicked(){
-  document.getElementById("page1").classList.add("hidden");
-  document.getElementById("page2").classList.remove("hidden");
+function yes(){
+  document.getElementById("p1").classList.add("hidden");
+  document.getElementById("p2").classList.remove("hidden");
 }
 
 function openGift(){
-  document.getElementById("page2").classList.add("hidden");
-  document.getElementById("page3").classList.remove("hidden");
+  document.getElementById("p2").classList.add("hidden");
+  document.getElementById("p3").classList.remove("hidden");
 }
 
 // NAVIGATION
-function openPhotos(){
+function photos(){
   hideAll();
-  document.getElementById("photos").classList.remove("hidden");
+  document.getElementById("photosPage").classList.remove("hidden");
+  typeText();
 }
 
-function openVoice(){
+function voice(){
   hideAll();
-  document.getElementById("voice").classList.remove("hidden");
+  document.getElementById("voicePage").classList.remove("hidden");
 }
 
-function openVideo(){
+function video(){
   hideAll();
-  document.getElementById("video").classList.remove("hidden");
+  document.getElementById("videoPage").classList.remove("hidden");
 }
 
 function back(){
   hideAll();
-  document.getElementById("page3").classList.remove("hidden");
+  document.getElementById("p3").classList.remove("hidden");
 }
 
 function hideAll(){
-  document.getElementById("page3").classList.add("hidden");
-  document.getElementById("photos").classList.add("hidden");
-  document.getElementById("voice").classList.add("hidden");
-  document.getElementById("video").classList.add("hidden");
+  document.getElementById("p3").classList.add("hidden");
+  document.getElementById("photosPage").classList.add("hidden");
+  document.getElementById("voicePage").classList.add("hidden");
+  document.getElementById("videoPage").classList.add("hidden");
+}
+
+
+// TYPEWRITER EFFECT
+function typeText(){
+
+let text = "Every photo here holds a special memory. \nMoments with you are my favorite stories. \nYou make life beautiful 💖";
+
+let i=0;
+let speed=60;
+
+function type(){
+  if(i<text.length){
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(type,speed);
+  }
+}
+type();
 }
 
 </script>
 
 </body>
-</html>
+    </html>
