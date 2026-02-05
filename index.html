@@ -4,11 +4,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Be My Valentine 💌</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Courier+Prime&family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Poppins&family=Courier+Prime&display=swap" rel="stylesheet">
 
 <style>
 
-/* MAIN BODY */
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -17,27 +16,15 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    text-align: center;
-    overflow-x: hidden;
 }
 
-/* BACKGROUND PETALS */
-#petals {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
-
+/* REAL PETALS */
 .petal {
     position: fixed;
-    top: -10px;
-    width: 12px;
-    height: 12px;
-    background: pink;
-    border-radius: 50%;
-    opacity: 0.6;
+    top: -20px;
+    width: 25px;
     animation: fall linear infinite;
+    z-index: -1;
 }
 
 @keyframes fall {
@@ -46,21 +33,21 @@ body {
     }
 }
 
-/* CARD */
+/* MAIN CARD */
 .card {
-    background: rgba(255,255,255,0.94);
-    border: 2px solid #ffb6c1;
+    background: white;
     border-radius: 20px;
     padding: 20px;
     width: 90%;
     max-width: 420px;
-    box-shadow: 0 0 20px rgba(255,182,193,0.4);
+    text-align: center;
+    box-shadow: 0 0 20px pink;
     animation: fade 1s ease;
 }
 
 @keyframes fade {
-    from {opacity:0;}
-    to {opacity:1;}
+    from{opacity:0;}
+    to{opacity:1;}
 }
 
 h1 {
@@ -75,16 +62,15 @@ button {
     border-radius: 20px;
     background: #ff69b4;
     color: white;
-    font-size: 16px;
 }
 
 .hidden {
     display: none;
 }
 
-/* AESTHETIC GIFT BOX */
+/* GIFT BOX */
 #mainGift {
-    width: 120px;
+    width: 140px;
     cursor: pointer;
     animation: bounce 1.5s infinite;
 }
@@ -94,45 +80,48 @@ button {
     50%{transform:translateY(-10px);}
 }
 
-/* POP OUT GIFTS */
+/* SMALL GIFTS */
 .smallGift {
-    width: 70px;
+    width: 90px;
     margin: 10px;
     cursor: pointer;
-    display: inline-block;
     animation: pop 1s ease;
 }
 
 @keyframes pop {
-    from {transform:scale(0);}
-    to {transform:scale(1);}
+    from{transform:scale(0);}
+    to{transform:scale(1);}
 }
 
 /* VINTAGE PAPER */
 .paper {
     background: #fff8e7;
     border: 2px solid #d4a373;
-    padding: 20px;
-    margin: 10px;
+    padding: 25px;
     min-height: 600px;
     position: relative;
+    margin: 10px;
     font-family: 'Courier Prime', monospace;
 }
 
-/* RANDOM IMAGES ON PAPER */
-.paper img {
+/* IMAGES INSIDE PAPER ONLY */
+.paper .img {
     width: 120px;
     position: absolute;
-    border: 4px solid white;
+    border: 5px solid white;
     box-shadow: 0 0 10px gray;
 }
 
-/* FLOATING STICKERS */
-.sticker {
-    position: fixed;
-    width: 60px;
-    opacity: 0.4;
-    z-index: -1;
+/* TEXT ALWAYS ABOVE IMAGES */
+.paper .text {
+    position: relative;
+    z-index: 10;
+}
+
+/* BACK BUTTON FIX */
+.back {
+    position: relative;
+    z-index: 20;
 }
 
 </style>
@@ -141,14 +130,10 @@ button {
 <body>
 
 <audio autoplay loop>
-  <source src="music.mp3">
+<source src="music.mp3">
 </audio>
 
 <div id="petals"></div>
-
-<!-- FLOATING DECORATIONS -->
-<img src="number1.jpg" class="sticker" style="top:10%; left:5%;">
-<img src="number2.jpg" class="sticker" style="bottom:10%; right:5%;">
 
 <!-- PAGE 1 -->
 <div class="card" id="p1">
@@ -156,61 +141,65 @@ button {
 <h1>Will you be my Valentine? 💖</h1>
 
 <button onclick="yes()">YES 💕</button>
-<button id="noBtn" onclick="no()">NO 😏</button>
+<button onclick="no()" id="noBtn">NO 😏</button>
 
-<img id="noSticker" width="160" class="hidden">
+<p id="noText"></p>
 
 </div>
 
 <!-- PAGE 2 -->
 <div class="card hidden" id="p2">
 
-<h1>You clicked YES 😭💖</h1>
+<h1>Yay! 💖</h1>
 
-<p>Tap the gift box 👇</p>
+<p>Tap the gift box</p>
 
-<img src="number1.jpg" id="mainGift" onclick="showGifts()">
+<img src="giftbox.png" id="mainGift" onclick="showGifts()">
 
 <div id="gifts" class="hidden">
-  <img src="number2.jpg" class="smallGift" onclick="openPhotos()">
-  <img src="number1.jpg" class="smallGift" onclick="openVoice()">
-  <img src="number2.jpg" class="smallGift" onclick="openVideo()">
+  <img src="gift1.png" class="smallGift" onclick="openPhotos()">
+  <img src="gift2.png" class="smallGift" onclick="openVoice()">
+  <img src="gift3.png" class="smallGift" onclick="openVideo()">
 </div>
 
 </div>
 
-<!-- PHOTOS PAGE -->
+<!-- PHOTOS -->
 <div id="photos" class="hidden">
 
 <div class="paper">
 
-<h2>Our Little Memories 💌</h2>
+<div class="text">
+
+<h2>Our Memories 💌</h2>
 
 <p>
-Every photo here holds a beautiful memory.  
-Moments with you feel like magic.  
-Thank you for being my favorite person 💖
+Every picture here holds a memory.  
+Every memory holds love.  
+You are my favorite story 💖
 </p>
-
-<img src="photo1.jpg" style="top:10%; left:5%; transform:rotate(-10deg)">
-<img src="photo2.jpg" style="top:30%; right:10%; transform:rotate(8deg)">
-<img src="photo3.jpg" style="top:50%; left:15%; transform:rotate(-6deg)">
-<img src="photo4.jpg" style="top:70%; right:5%; transform:rotate(10deg)">
-<img src="photo5.jpg" style="top:85%; left:10%; transform:rotate(-8deg)">
 
 </div>
 
-<button onclick="back()">Back</button>
+<img src="photo1.jpg" class="img" style="top:20%; left:5%; transform:rotate(-8deg)">
+<img src="photo2.jpg" class="img" style="top:35%; right:8%; transform:rotate(10deg)">
+<img src="photo3.jpg" class="img" style="top:55%; left:12%; transform:rotate(-6deg)">
+<img src="photo4.jpg" class="img" style="top:70%; right:5%; transform:rotate(8deg)">
+<img src="photo5.jpg" class="img" style="top:85%; left:6%; transform:rotate(-10deg)">
+
+</div>
+
+<button class="back" onclick="back()">Back</button>
 
 </div>
 
 <!-- VOICE -->
 <div class="card hidden" id="voice">
 
-<h1>Your Voice Gift 💌</h1>
+<h1>Your Voice 💌</h1>
 
 <audio controls>
-<source src="voice.mp3.m4a">
+<source src="voice.mp3">
 </audio>
 
 <br>
@@ -232,34 +221,32 @@ Thank you for being my favorite person 💖
 
 </div>
 
-
 <script>
 
-// PETALS
+// REAL PETALS
 function petals(){
-  for(let i=0;i<50;i++){
-    let p=document.createElement("div");
+  for(let i=0;i<30;i++){
+    let p=document.createElement("img");
+    p.src="petal.png";
     p.className="petal";
     p.style.left=Math.random()*100+"vw";
-    p.style.animationDuration=4+Math.random()*5+"s";
-    document.getElementById("petals").appendChild(p);
+    p.style.animationDuration=4+Math.random()*4+"s";
+    document.body.appendChild(p);
   }
 }
 petals();
 
 
-// NO LOGIC
-let c=0;
-
+// NO BUTTON LOGIC
+let count=0;
 function no(){
-  c++;
-  let s=document.getElementById("noSticker");
-  s.classList.remove("hidden");
+  count++;
+  let t=document.getElementById("noText");
 
-  if(c==1) s.src="number1.jpg";
-  if(c==2) s.src="number2.jpg";
-
-  if(c>=3){
+  if(count==1) t.innerHTML="Are you sure? 😢";
+  if(count==2) t.innerHTML="Think again 😭";
+  if(count>=3){
+    t.innerHTML="You have no option now 😏";
     document.getElementById("noBtn").style.display="none";
   }
 }
