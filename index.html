@@ -18,7 +18,7 @@ body {
     min-height: 100vh;
 }
 
-/* REAL PETALS */
+/* PETALS */
 .petal {
     position: fixed;
     top: -20px;
@@ -42,12 +42,6 @@ body {
     max-width: 420px;
     text-align: center;
     box-shadow: 0 0 20px pink;
-    animation: fade 1s ease;
-}
-
-@keyframes fade {
-    from{opacity:0;}
-    to{opacity:1;}
 }
 
 h1 {
@@ -68,7 +62,7 @@ button {
     display: none;
 }
 
-/* GIFT BOX */
+/* MAIN GIFT */
 #mainGift {
     width: 140px;
     cursor: pointer;
@@ -93,35 +87,35 @@ button {
     to{transform:scale(1);}
 }
 
-/* VINTAGE PAPER */
+/* VINTAGE PAPER - FULL PAGE */
 .paper {
     background: #fff8e7;
-    border: 2px solid #d4a373;
+    border: 3px solid #d4a373;
     padding: 25px;
-    min-height: 600px;
-    position: relative;
-    margin: 10px;
+    min-height: 150vh;
+    width: 90%;
+    margin: auto;
     font-family: 'Courier Prime', monospace;
+    position: relative;
 }
 
-/* IMAGES INSIDE PAPER ONLY */
-.paper .img {
+/* IMAGES INSIDE PAPER */
+.paper img {
     width: 120px;
     position: absolute;
     border: 5px solid white;
     box-shadow: 0 0 10px gray;
 }
 
-/* TEXT ALWAYS ABOVE IMAGES */
+/* TEXT ABOVE IMAGES */
 .paper .text {
     position: relative;
     z-index: 10;
 }
 
-/* BACK BUTTON FIX */
+/* BACK BUTTON */
 .back {
-    position: relative;
-    z-index: 20;
+    margin: 20px;
 }
 
 </style>
@@ -150,16 +144,29 @@ button {
 <!-- PAGE 2 -->
 <div class="card hidden" id="p2">
 
-<h1>Yay! 💖</h1>
+<h1>Yay! You clicked YES 💖</h1>
 
 <p>Tap the gift box</p>
 
-<img src="giftbox.png" id="mainGift" onclick="showGifts()">
+<img src="giftbox.jpg" id="mainGift" onclick="showGifts()">
 
 <div id="gifts" class="hidden">
-  <img src="gift.png" class="smallGift" onclick="openPhotos()">
-  <img src="gift.png" class="smallGift" onclick="openVoice()">
-  <img src="gift.png" class="smallGift" onclick="openVideo()">
+
+  <div>
+    <img src="gift.jpg" class="smallGift" onclick="openPhotos()">
+    <p>Gift 1 – Photos 💝</p>
+  </div>
+
+  <div>
+    <img src="gift.jpg" class="smallGift" onclick="openVoice()">
+    <p>Gift 2 – Voice Note 🎧</p>
+  </div>
+
+  <div>
+    <img src="gift.jpg" class="smallGift" onclick="openVideo()">
+    <p>Gift 3 – Surprise Video 🎬</p>
+  </div>
+
 </div>
 
 </div>
@@ -174,18 +181,18 @@ button {
 <h2>Our Memories 💌</h2>
 
 <p>
-Every picture here holds a memory.  
-Every memory holds love.  
-You are my favorite story 💖
+Every picture here holds a special moment.  
+Every moment holds love.  
+And you are my favorite memory forever 💖
 </p>
 
 </div>
 
-<img src="photo1.jpg" class="img" style="top:20%; left:5%; transform:rotate(-8deg)">
-<img src="photo2.jpg" class="img" style="top:35%; right:8%; transform:rotate(10deg)">
-<img src="photo3.jpg" class="img" style="top:55%; left:12%; transform:rotate(-6deg)">
-<img src="photo4.jpg" class="img" style="top:70%; right:5%; transform:rotate(8deg)">
-<img src="photo5.jpg" class="img" style="top:85%; left:6%; transform:rotate(-10deg)">
+<img src="photo1.jpg" style="top:20%; left:5%; transform:rotate(-8deg)">
+<img src="photo2.jpg" style="top:35%; right:8%; transform:rotate(10deg)">
+<img src="photo3.jpg" style="top:55%; left:12%; transform:rotate(-6deg)">
+<img src="photo4.jpg" style="top:75%; right:5%; transform:rotate(8deg)">
+<img src="photo5.jpg" style="top:95%; left:6%; transform:rotate(-10deg)">
 
 </div>
 
@@ -199,7 +206,7 @@ You are my favorite story 💖
 <h1>Your Voice 💌</h1>
 
 <audio controls>
-<source src="voice.mp3.m4a">
+<source src="voice.mp3">
 </audio>
 
 <br>
@@ -223,11 +230,11 @@ You are my favorite story 💖
 
 <script>
 
-// REAL PETALS
+// PETALS
 function petals(){
-  for(let i=0;i<30;i++){
+  for(let i=0;i<25;i++){
     let p=document.createElement("img");
-    p.src="petal.png";
+    p.src="petal.jpg";
     p.className="petal";
     p.style.left=Math.random()*100+"vw";
     p.style.animationDuration=4+Math.random()*4+"s";
@@ -237,16 +244,19 @@ function petals(){
 petals();
 
 
-// NO BUTTON LOGIC
+// NO BUTTON LOGIC (Customized for grumpy images)
+
 let count=0;
+
 function no(){
   count++;
   let t=document.getElementById("noText");
 
-  if(count==1) t.innerHTML="Are you sure? 😢";
-  if(count==2) t.innerHTML="Think again 😭";
-  if(count>=3){
-    t.innerHTML="You have no option now 😏";
+  if(count==1) t.innerHTML="Hmm… are you getting grumpy already? 😾";
+  if(count==2) t.innerHTML="That angry face suits you too much! 😤";
+  if(count==3) t.innerHTML="Stop acting cute and just say YES 😏";
+  if(count>=4){
+    t.innerHTML="No more NO options for grumpy baby 😌";
     document.getElementById("noBtn").style.display="none";
   }
 }
@@ -257,6 +267,7 @@ function yes(){
 }
 
 function showGifts(){
+  document.getElementById("mainGift").style.display="none";
   document.getElementById("gifts").classList.remove("hidden");
 }
 
