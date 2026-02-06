@@ -148,22 +148,22 @@ button {
 
 <p>Tap the gift box</p>
 
-<img src="giftbox.jpg" id="mainGift" onclick="showGifts()">
+<img src="giftbox.png" id="mainGift" onclick="showGifts()">
 
 <div id="gifts" class="hidden">
 
   <div>
-    <img src="gift.jpg" class="smallGift" onclick="openPhotos()">
+    <img src="gift.png" class="smallGift" onclick="openPhotos()">
     <p>Gift 1 – Photos 💝</p>
   </div>
 
   <div>
-    <img src="gift.jpg" class="smallGift" onclick="openVoice()">
+    <img src="gift.png" class="smallGift" onclick="openVoice()">
     <p>Gift 2 – Voice Note 🎧</p>
   </div>
 
   <div>
-    <img src="gift.jpg" class="smallGift" onclick="openVideo()">
+    <img src="gift.png" class="smallGift" onclick="openVideo()">
     <p>Gift 3 – Surprise Video 🎬</p>
   </div>
 
@@ -206,7 +206,7 @@ And you are my favorite memory forever 💖
 <h1>Your Voice 💌</h1>
 
 <audio controls>
-<source src="voice.mp3">
+<source src="voice.mp3.m4a">
 </audio>
 
 <br>
@@ -234,7 +234,7 @@ And you are my favorite memory forever 💖
 function petals(){
   for(let i=0;i<25;i++){
     let p=document.createElement("img");
-    p.src="petal.jpg";
+    p.src="petal.png";
     p.className="petal";
     p.style.left=Math.random()*100+"vw";
     p.style.animationDuration=4+Math.random()*4+"s";
